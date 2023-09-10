@@ -1,0 +1,29 @@
+// ProductRepositoryImpl.java
+import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class ProductRepositoryImpl implements ProductRepository {
+    private List<Product> products = new ArrayList<>();
+
+    public ProductRepositoryImpl() {
+        // Initialize with some sample products
+        products.add(new Product(1L, "Product 1", 19.99));
+        products.add(new Product(2L, "Product 2", 29.99));
+        // Add more products here
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return products;
+    }
+
+    @Override
+    public Product findById(Long id) {
+        return products.stream()
+                .filter(product -> product.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+}
